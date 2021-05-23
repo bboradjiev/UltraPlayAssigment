@@ -1,0 +1,12 @@
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Header Styling */
+.header {
+  background-color: blue;
+}
+/*# sourceMappingURL=App.css.map */

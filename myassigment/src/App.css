@@ -1,0 +1,84 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Header Styling */
+
+.header {
+  background-color: #203850;
+  height: 70px;
+  width: 100%;
+  padding-left: 20px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+h1,
+h2 {
+  color: #e5e5e5;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+  padding: 0 10px;
+}
+
+.sorting_button {
+  background-color: #26af70;
+  color: #e5e5e5;
+  padding: 10px 22px;
+  border-radius: 5px;
+  margin-left: 20px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Body/Data Styling */
+
+.table {
+  background-color: #e1e1e1;
+  width: 100%;
+  border-collapse: collapse;
+  display: flex;
+  align-items: center;
+}
+
+.table_row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.table_name {
+  padding-left: 20px;
+  text-align: left;
+  width: 35%;
+}
+
+.table_data {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 20px;
+  width: 65%;
+}
+
+.table_small {
+  background-color: #ffffff;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.game_name {
+  background-color: #203850;
+  display: flex;
+  justify-content: space-between;
+}
