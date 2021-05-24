@@ -2,20 +2,26 @@ import "./App.css";
 import { useState, useEffect } from "react";
 import RenderDataSortedByDate from "./Component/RenderDataSortedByDate";
 import RenderDataSortedByLeague from "./Component/RenderDataSortedByLeague";
+import { getData } from "./utils";
+import Loader from "react-loader-spinner";
 
 function App() {
   const [data, setData] = useState([]);
-  const [dataSortedByTime, setdataSortedByTime] = useState([]);
-  const [dataSortedByLeague, setdataSortedByLeague] = useState([]);
   const [toggleBtn, setToggleBtn] = useState(true);
+  const [spinner, setSpinner] = useState(true);
 
   useEffect(() => {
-    getData();
-    setdataSortedByTime(groupedDatabyLeague);
-    setdataSortedByLeague(groupedDatabyLeague);
+    setTimeout(() => {
+      let fetchedData = getData();
+      fetchedData.then(function (result) {
+        setData(result);
+        setSpinner(!spinner);
+      });
+    }, 500);
+    setSpinner(spinner);
   }, []);
 
-  const newData = [];
+  const newDataWithDates = [];
   for (let i = 0; i < data.length; i++) {
     let gameName = data[i].$.Name.split(",")[0];
     let leagueName = data[i].$.Name.split(", ")[1];
@@ -28,46 +34,22 @@ function App() {
       match.matchID = matchesData[j].$.ID;
       match.matchName = matchesData[j].$.Name;
       match.startDate = matchesData[j].$.StartDate;
-      match.bet = !matchesData[j].Bet
-        ? undefined
-        : matchesData[j].Bet[0].Odd[0].$.Value;
-      match.odd = !matchesData[j].Bet
-        ? undefined
-        : matchesData[j].Bet[0].Odd[1].$.Value;
+      match.bet =
+        matchesData[j].Bet === undefined
+          ? undefined
+          : matchesData[j].Bet[0].Odd[0].$.Value;
+      match.odd =
+        matchesData[j].Bet === undefined
+          ? undefined
+          : matchesData[j].Bet[0].Odd[1].$.Value;
 
-      newData.push(match);
+      newDataWithDates.push(match);
     }
   }
 
-  const sortedByMatchStartDate = newData.sort(function (d1, d2) {
+  const sortedByMatchStartDate = newDataWithDates.sort(function (d1, d2) {
     return new Date(d1.startDate) - new Date(d2.startDate);
   });
-
-  const groupedDatabyGame = sortedByMatchStartDate.reduce((acc, obj) => {
-    const property = obj.gameName;
-    acc[property] = acc[property] || [];
-    acc[property].push(obj);
-    return acc;
-  }, []);
-
-  const groupedDatabyLeague = sortedByMatchStartDate.reduce((acc, obj) => {
-    const property = obj.leagueName;
-    acc[property] = acc[property] || [];
-    acc[property].push(obj);
-    return acc;
-  }, []);
-
-  // console.log(groupedDatabyGame);
-  // console.log(groupedDatabyLeague);
-
-  //move to separate file
-  const getData = async () => {
-    let responce = await fetch("http://localhost:8081/matches").then((res) =>
-      res.json()
-    );
-
-    setData(responce.XmlSports.Sport[0].Event);
-  };
 
   return (
     <div className="App">
@@ -82,6 +64,15 @@ function App() {
           {toggleBtn ? "Sort by League" : "Sort by Time"}
         </button>
       </header>
+
+      {spinner ? (
+        <div className="spinner">
+          <div>
+            <Loader type="TailSpin" color="#203850" height={200} width={200} />
+          </div>
+        </div>
+      ) : null}
+
       <div>
         {toggleBtn === true
           ? sortedByMatchStartDate.map((item) => (

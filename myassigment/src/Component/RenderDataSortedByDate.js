@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import League from "./League";
+import { processDate } from "../utils";
 
 export default function RenderData({
   gameName,
@@ -10,33 +12,6 @@ export default function RenderData({
 }) {
   // state variable for toggling the up and down arrows
   const [toggle, setToggle] = useState(false);
-  console.log(gameName);
-  //function for processing date and time recieved
-  function processDate(date) {
-    const months = [
-      "empty",
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
-
-    let splitDate = date.split("-");
-    let month = splitDate[1];
-    let newDate = splitDate[2].split("T")[0];
-    let newMonth = months[+month];
-    let newHour = splitDate[2].split("T")[1].slice(0, 5);
-
-    return `${newDate} ${newMonth} ${newHour}`;
-  }
 
   return (
     <>
@@ -51,9 +26,9 @@ export default function RenderData({
                 className="toggle_button"
               >
                 {toggle ? (
-                  <img alt="+" src="caret-down.png" />
+                  <img className="arrow" alt="+" src="caret-down.png" />
                 ) : (
-                  <img alt="-" src="caret-arrow-up.png" />
+                  <img className="arrow" alt="-" src="caret-arrow-up.png" />
                 )}
               </button>
             </td>

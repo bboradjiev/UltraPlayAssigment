@@ -17,6 +17,7 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  border-bottom: 1px solid #e5e5e5;
 }
 
 h1,
@@ -30,6 +31,11 @@ button {
   padding: 0 10px;
 }
 
+.arrow {
+  width: 15px;
+  height: 15px;
+}
+
 .sorting_button {
   background-color: #26af70;
   color: #e5e5e5;
@@ -41,6 +47,14 @@ button {
 }
 
 /* Body/Data Styling */
+
+.spinner {
+  height: 80vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .table {
   background-color: #e1e1e1;
@@ -79,6 +93,8 @@ button {
 
 .game_name {
   background-color: #203850;
+  padding: 5px 10px;
   display: flex;
   justify-content: space-between;
+  border-top: 1px solid #e5e5e5;
 }

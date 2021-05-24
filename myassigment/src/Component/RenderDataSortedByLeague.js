@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import Game from "./Game";
+import League from "./League";
+import Match from "./Match";
 
 function RenderDataSortedByLeague({
   gameName,
@@ -8,102 +11,69 @@ function RenderDataSortedByLeague({
   bet,
   odd,
 }) {
-  const [toggle, setToggle] = useState(false);
-
-  function processDate(date) {
-    const months = [
-      "empty",
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
-
-    let splitDate = date.split("-");
-    let month = splitDate[1];
-    let newDate = splitDate[2].split("T")[0];
-    let newMonth = months[+month];
-    let newHour = splitDate[2].split("T")[1].slice(0, 5);
-
-    return `${newDate} ${newMonth} ${newHour}`;
-  }
+  const [toggleName, setToggleName] = useState(false);
+  const [toggleLeague, setToggleLeague] = useState(false);
 
   return (
     <>
       <div className="game_name">
-        <h2>{gameName}</h2>
+        <h2>
+          <Game game={gameName} />
+        </h2>
         <button
           onClick={() => {
-            setToggle(!toggle);
+            setToggleName(!toggleName);
           }}
         >
-          {toggle ? (
-            <img alt="+" src="down-arrow.png" />
+          {toggleName ? (
+            <img className="arrow" alt="+" src="icons8-sort-down-26.png" />
           ) : (
-            <img alt="-" src="up-arrow.png" />
+            <img className="arrow" alt="-" src="icons8-sort-up-26.png" />
           )}
         </button>
       </div>
-      <table className="table">
-        <tbody className="table">
-          <tr className="table_row">
-            <td>
-              <button
-                onClick={() => {
-                  setToggle(!toggle);
-                }}
-                className="toggle_button"
-              >
-                {toggle ? (
-                  <img alt="+" src="caret-down.png" />
-                ) : (
-                  <img alt="-" src="caret-arrow-up.png" />
-                )}
-              </button>
-            </td>
-          </tr>
-          <tr className="table_name">{leagueName}</tr>
-          <tr className="table_data">
-            <th>1</th>
-            <th>X</th>
-            <th>1</th>
-          </tr>
-        </tbody>
-      </table>
-      {toggle ? (
-        <table className="table_small">
-          <tbody>
-            <tr className="table_row">
-              <th className="table_name">{processDate(startDate)}</th>
-              <th className="table_name">{matchName}</th>
-              <th className="table_data">
-                <p>
-                  {bet !== undefined ? (
-                    bet
-                  ) : (
-                    <img alt="lock" src="padlock.png" />
-                  )}
-                </p>
-                <p>
-                  {odd !== undefined ? (
-                    odd
-                  ) : (
-                    <img alt="lock" src="padlock.png" />
-                  )}
-                </p>
-              </th>
-            </tr>
-          </tbody>
-        </table>
-      ) : null}
+      {toggleName ? (
+        <div>
+          <table className="table">
+            <tbody className="table">
+              <tr className="table_row">
+                <td>
+                  <button
+                    onClick={() => {
+                      setToggleLeague(!toggleLeague);
+                    }}
+                    className="toggle_button"
+                  >
+                    {toggleLeague ? (
+                      <img className="arrow" alt="+" src="caret-down.png" />
+                    ) : (
+                      <img className="arrow" alt="-" src="caret-arrow-up.png" />
+                    )}
+                  </button>
+                </td>
+              </tr>
+
+              <tr className="table_name">
+                <League league={leagueName} />
+              </tr>
+              <tr className="table_data">
+                <th>1</th>
+                <th>X</th>
+                <th>1</th>
+              </tr>
+            </tbody>
+          </table>
+          <Match
+            toggleLeague={toggleLeague}
+            startDate={startDate}
+            matchName={matchName}
+            bet={bet}
+            odd={odd}
+          />
+        </div>
+      ) : (
+        ""
+      )}
     </>
   );
 }
