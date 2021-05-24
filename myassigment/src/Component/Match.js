@@ -2,6 +2,8 @@ import React from "react";
 import { processDate } from "../utils";
 
 function Match({ toggleLeague, startDate, matchName, bet, odd }) {
+  processDate(startDate);
+
   return (
     <>
       {toggleLeague ? (
@@ -18,6 +20,7 @@ function Match({ toggleLeague, startDate, matchName, bet, odd }) {
                     <img alt="lock" src="padlock.png" />
                   )}
                 </p>
+                <p className="table_data_hidden_element">X</p>
                 <p>
                   {odd !== undefined ? (
                     odd

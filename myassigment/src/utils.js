@@ -8,7 +8,7 @@ export const getData = async function () {
   return responce;
 };
 
-//Strucuring recieved data per the needed format DATE/MONTH/HOUR
+//Strucuring recieved date per the needed format DATE/MONTH/HOUR
 export function processDate(date) {
   const months = [
     "empty",

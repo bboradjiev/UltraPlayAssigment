@@ -25,10 +25,16 @@ h2 {
   color: #e5e5e5;
 }
 
+.joystick {
+  margin-right: 20px;
+  height: 30px;
+  width: 30px;
+}
+
 button {
   background-color: transparent;
   border: none;
-  padding: 0 10px;
+  padding: 0 20px;
 }
 
 .arrow {
@@ -62,6 +68,7 @@ button {
   border-collapse: collapse;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
 .table_row {
@@ -69,20 +76,34 @@ button {
   justify-content: space-between;
   align-items: center;
   padding: 10px 0;
+  font-size: 14px;
 }
 
 .table_name {
   padding-left: 20px;
   text-align: left;
-  width: 35%;
 }
 
 .table_data {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-right: 20px;
-  width: 65%;
+  padding: 0 20px;
+  width: 40%;
+}
+
+.table_data th,
+.table_data p {
+  padding-left: 10px;
+}
+
+.table_data_hidden_element {
+  visibility: hidden;
+}
+
+.td_table {
+  display: flex;
+  flex-direction: row;
 }
 
 .table_small {
@@ -91,9 +112,14 @@ button {
   border-collapse: collapse;
 }
 
+.table_date {
+  padding-left: 20px;
+  text-align: left;
+}
+
 .game_name {
   background-color: #203850;
-  padding: 5px 10px;
+  padding: 5px 20px;
   display: flex;
   justify-content: space-between;
   border-top: 1px solid #e5e5e5;

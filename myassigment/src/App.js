@@ -12,7 +12,7 @@ function App() {
 
   useEffect(() => {
     setTimeout(() => {
-      let fetchedData = getData();
+      const fetchedData = getData();
       fetchedData.then(function (result) {
         setData(result);
         setSpinner(!spinner);
@@ -21,6 +21,7 @@ function App() {
     setSpinner(spinner);
   }, []);
 
+  //creating new Array with chosen data for easier handling
   const newDataWithDates = [];
   for (let i = 0; i < data.length; i++) {
     let gameName = data[i].$.Name.split(",")[0];
@@ -46,7 +47,8 @@ function App() {
       newDataWithDates.push(match);
     }
   }
-
+  
+  //sorting data so that it is desplayed by date
   const sortedByMatchStartDate = newDataWithDates.sort(function (d1, d2) {
     return new Date(d1.startDate) - new Date(d2.startDate);
   });
@@ -54,6 +56,7 @@ function App() {
   return (
     <div className="App">
       <header className="header">
+        <img className="joystick" alt="+" src="icons8-game-controller-64.png" />
         <h1>Esports</h1>
         <button
           onClick={() => {
@@ -76,9 +79,9 @@ function App() {
       <div>
         {toggleBtn === true
           ? sortedByMatchStartDate.map((item) => (
-              <RenderDataSortedByDate кеу={item.ID} {...item} />
+              <RenderDataSortedByDate кеу={item.matchID} {...item} />
             ))
-          : sortedByMatchStartDate.map((item, i) => (
+          : sortedByMatchStartDate.map((item) => (
               <RenderDataSortedByLeague key={item.ID} {...item} />
             ))}
       </div>
