@@ -20,7 +20,6 @@ function App() {
     }, 500);
     setSpinner(spinner);
   }, []);
-
   //creating new Array with chosen data for easier handling
   const newDataWithDates = [];
   for (let i = 0; i < data.length; i++) {
@@ -42,16 +41,18 @@ function App() {
       match.odd =
         matchesData[j].Bet === undefined
           ? undefined
+          : matchesData[j].Bet[0].Odd[1] === undefined
+          ? undefined
           : matchesData[j].Bet[0].Odd[1].$.Value;
 
       newDataWithDates.push(match);
     }
   }
-  
   //sorting data so that it is desplayed by date
   const sortedByMatchStartDate = newDataWithDates.sort(function (d1, d2) {
     return new Date(d1.startDate) - new Date(d2.startDate);
   });
+  console.log(sortedByMatchStartDate);
 
   return (
     <div className="App">
@@ -82,7 +83,7 @@ function App() {
               <RenderDataSortedByDate кеу={item.matchID} {...item} />
             ))
           : sortedByMatchStartDate.map((item) => (
-              <RenderDataSortedByLeague key={item.ID} {...item} />
+              <RenderDataSortedByLeague key={item.matchID} {...item} />
             ))}
       </div>
     </div>
