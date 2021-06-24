@@ -4,7 +4,7 @@ import RenderDataSortedByDate from "./Component/RenderDataSortedByDate";
 import RenderDataSortedByLeague from "./Component/RenderDataSortedByLeague";
 import { getData } from "./utils";
 import Loader from "react-loader-spinner";
-
+ 
 function App() {
   const [data, setData] = useState([]);
   const [toggleBtn, setToggleBtn] = useState(true);
@@ -50,8 +50,21 @@ function App() {
   const sortedByMatchStartDate = newDataWithDates.sort(function (d1, d2) {
     return new Date(d1.startDate) - new Date(d2.startDate);
   });
-  console.log(sortedByMatchStartDate);
+  
 
+  function groupBy(key){
+    return function group(arr){
+      return arr.reduce((acc, obj)=>{
+        const property = obj[key];
+        acc[property] = acc[property] || [];
+        acc[property].push(obj);
+        return acc;
+      }, {})
+    }
+  }
+  const groupByName = groupBy('gameName');
+  const groupByLeague = groupBy('leagueName');
+ 
   return (
     <div className="App">
       <header className="header">
