@@ -10,27 +10,29 @@ export const getData = async function () {
 
 //Strucuring recieved date per the needed format DATE/MONTH/HOUR
 export function processDate(date) {
-  const months = [
-    "empty",
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
+  if (date) {
+    const months = [
+      "empty",
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
 
-  let splitDate = date.split("-");
-  let month = splitDate[1];
-  let newDate = splitDate[2].split("T")[0];
-  let newMonth = months[+month];
-  let newHour = splitDate[2].split("T")[1].slice(0, 5);
+    let splitDate = date.split("-");
+    let month = splitDate[1];
+    let newDate = splitDate[2].split("T")[0];
+    let newMonth = months[+month];
+    let newHour = splitDate[2].split("T")[1].slice(0, 5);
 
-  return `${newDate} ${newMonth} ${newHour}`;
+    return `${newDate} ${newMonth} ${newHour}`;
+  }
 }

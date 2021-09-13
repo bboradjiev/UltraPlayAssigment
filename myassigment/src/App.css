@@ -35,6 +35,7 @@ button {
   background-color: transparent;
   border: none;
   padding: 0 20px;
+  cursor: pointer;
 }
 
 .arrow {
@@ -69,6 +70,7 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  cursor: pointer;
 }
 
 .table_row {

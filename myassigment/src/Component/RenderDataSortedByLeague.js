@@ -4,24 +4,22 @@ import League from "./League";
 import Match from "./Match";
 import Slide from "react-reveal/Slide";
 
-function RenderDataSortedByLeague({
-  gameName,
-  leagueName,
-  matchName,
-  startDate,
-  bet,
-  odd,
-}) {
+function RenderDataSortedByLeague(props) {
   // toggling arrow icon so that is shows up or down
   const [toggleArrow, setToggleArrow] = useState(false);
   // toggling the league so that matches can be shown and hidden
-  const [toggleLeague, setToggleLeague] = useState(false);
+  const [toggleLeague, setToggleLeague] = useState(!false);
   return (
     <>
       <Slide right duration={1000}>
-        <div className="game_name">
+        <div
+          className="game_name"
+          onClick={() => {
+            setToggleArrow(!toggleArrow);
+          }}
+        >
           <h2>
-            <Game game={gameName} />
+            <Game game={props[0]} />
           </h2>
           <button
             onClick={() => {
@@ -38,9 +36,11 @@ function RenderDataSortedByLeague({
         {toggleArrow ? (
           <div>
             <table className="table">
-              <tbody className="table">
-                <tr className="table_row">
-                  <td className="td_table">
+              <tbody className="table" onClick={() => {
+                        setToggleLeague(!toggleLeague);
+                      }}>
+                <tr className="table_row" >
+                  <td className="td_table" >
                     <button
                       onClick={() => {
                         setToggleLeague(!toggleLeague);
@@ -58,7 +58,7 @@ function RenderDataSortedByLeague({
                       )}
                     </button>
                     <tr className="table_name">
-                      <League league={leagueName} />
+                      <League league={props[0]} />
                     </tr>
                   </td>
                 </tr>
@@ -70,13 +70,9 @@ function RenderDataSortedByLeague({
                 </tr>
               </tbody>
             </table>
-            <Match
-              toggleLeague={toggleLeague}
-              startDate={startDate}
-              matchName={matchName}
-              bet={bet}
-              odd={odd}
-            />
+            {props[1].map((match, i) => (
+              <Match key={i} match={match} toggleLeague={toggleLeague} />
+            ))}
           </div>
         ) : (
           ""

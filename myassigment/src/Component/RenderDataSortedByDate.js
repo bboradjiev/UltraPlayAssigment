@@ -3,13 +3,7 @@ import League from "./League";
 import Match from "./Match";
 import Slide from "react-reveal/Slide";
 
-export default function RenderData({
-  leagueName,
-  matchName,
-  startDate,
-  bet,
-  odd,
-}) {
+export default function RenderData(props) {
   // toggling arrow icon so that is shows up or down
   const [toggle, setToggle] = useState(false);
   // toggling the league so that matches can be shown and hidden
@@ -19,7 +13,13 @@ export default function RenderData({
     <>
       <Slide left duration={1000}>
         <table className="table">
-          <tbody className="table">
+          <tbody 
+            className="table"
+            onClick={() => {
+              setToggle(!toggle);
+              setToggleLeague(!toggleLeague);
+            }}
+          >
             <tr className="table_row">
               <td className="td_table">
                 <button
@@ -36,7 +36,7 @@ export default function RenderData({
                   )}
                 </button>
                 <tr className="table_name">
-                  <League league={leagueName} />
+                  <League league={props[0]} />
                 </tr>
               </td>
             </tr>
@@ -48,13 +48,9 @@ export default function RenderData({
             </tr>
           </tbody>
         </table>
-        <Match
-          toggleLeague={toggleLeague}
-          startDate={startDate}
-          matchName={matchName}
-          bet={bet}
-          odd={odd}
-        />
+        {props[1].map((match, i) => (
+          <Match key={i} match={match} toggleLeague={toggleLeague} />
+        ))}
       </Slide>
     </>
   );

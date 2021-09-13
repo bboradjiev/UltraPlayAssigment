@@ -1,29 +1,27 @@
 import React from "react";
 import { processDate } from "../utils";
 
-function Match({ toggleLeague, startDate, matchName, bet, odd }) {
-  processDate(startDate);
-
+function Match(props) {
   return (
     <>
-      {toggleLeague ? (
+      {props.toggleLeague ? (
         <table className="table_small">
           <tbody>
             <tr className="table_row">
-              <th className="table_name">{processDate(startDate)}</th>
-              <th className="table_name">{matchName}</th>
+              <th className="table_name">{processDate(props.match.startDate)}</th>
+              <th className="table_name">{props.match.matchName}</th>
               <th className="table_data">
                 <p>
-                  {bet !== undefined ? (
-                    bet
+                  {props.match.bet !== undefined ? (
+                    props.match.bet
                   ) : (
                     <img alt="lock" src="padlock.png" />
                   )}
                 </p>
                 <p className="table_data_hidden_element">X</p>
                 <p>
-                  {odd !== undefined ? (
-                    odd
+                  {props.match.odd !== undefined ? (
+                    props.match.odd
                   ) : (
                     <img alt="lock" src="padlock.png" />
                   )}

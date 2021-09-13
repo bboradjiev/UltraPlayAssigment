@@ -4,7 +4,7 @@ import RenderDataSortedByDate from "./Component/RenderDataSortedByDate";
 import RenderDataSortedByLeague from "./Component/RenderDataSortedByLeague";
 import { getData } from "./utils";
 import Loader from "react-loader-spinner";
- 
+
 function App() {
   const [data, setData] = useState([]);
   const [toggleBtn, setToggleBtn] = useState(true);
@@ -41,7 +41,9 @@ function App() {
       match.odd =
         matchesData[j].Bet === undefined
           ? undefined
-          : matchesData[j].Bet[0].Odd[1] === undefined ? undefined : matchesData[j].Bet[0].Odd[1].$.Value;
+          : matchesData[j].Bet[0].Odd[1] === undefined
+          ? undefined
+          : matchesData[j].Bet[0].Odd[1].$.Value;
 
       newDataWithDates.push(match);
     }
@@ -50,21 +52,22 @@ function App() {
   const sortedByMatchStartDate = newDataWithDates.sort(function (d1, d2) {
     return new Date(d1.startDate) - new Date(d2.startDate);
   });
-  
 
-  function groupBy(key){
-    return function group(arr){
-      return arr.reduce((acc, obj)=>{
+  function groupBy(key) {
+    return function group(arr) {
+      return arr.reduce((acc, obj) => {
         const property = obj[key];
         acc[property] = acc[property] || [];
         acc[property].push(obj);
         return acc;
-      }, {})
-    }
+      }, []);
+    };
   }
-  const groupByName = groupBy('gameName');
-  const groupByLeague = groupBy('leagueName');
- 
+  const groupByName = groupBy("gameName")(sortedByMatchStartDate);
+  const groupByLeague = groupBy("leagueName")(sortedByMatchStartDate);
+
+  // Object.entries(groupByName).map((key) =>console.log(key))
+
   return (
     <div className="App">
       <header className="header">
@@ -90,11 +93,11 @@ function App() {
 
       <div>
         {toggleBtn === true
-          ? sortedByMatchStartDate.map((item) => (
-              <RenderDataSortedByDate кеу={item.matchID} {...item} />
+          ? Object.entries(groupByName).map((key, i) => (
+              <RenderDataSortedByDate key={i} {...key} />
             ))
-          : sortedByMatchStartDate.map((item) => (
-              <RenderDataSortedByLeague key={item.matchID} {...item} />
+          : Object.entries(groupByLeague).map((key, i) => (
+              <RenderDataSortedByLeague key={i} {...key} />
             ))}
       </div>
     </div>
