@@ -71,6 +71,7 @@ button {
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
+  border-bottom: 1px solid black;
 }
 
 .table_row {
@@ -106,7 +107,7 @@ button {
 .td_table {
   display: flex;
   flex-direction: row;
-}
+ }
 
 .table_small {
   background-color: #ffffff;

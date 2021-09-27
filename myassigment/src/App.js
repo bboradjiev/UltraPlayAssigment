@@ -4,19 +4,20 @@ import RenderDataSortedByDate from "./Component/RenderDataSortedByDate";
 import RenderDataSortedByLeague from "./Component/RenderDataSortedByLeague";
 import { getData } from "./utils";
 import Loader from "react-loader-spinner";
+import dummydata from "./dummydata.json";
 
 function App() {
   const [data, setData] = useState([]);
   const [toggleBtn, setToggleBtn] = useState(true);
   const [spinner, setSpinner] = useState(true);
-
   useEffect(() => {
     setTimeout(() => {
-      const fetchedData = getData();
-      fetchedData.then(function (result) {
-        setData(result);
-        setSpinner(!spinner);
-      });
+      // const fetchedData = getData();
+      // fetchedData.then(function (result) {
+      //   setData(result);
+      //   setSpinner(!spinner);
+      // });
+      setSpinner(!spinner);
     }, 500);
     setSpinner(spinner);
   }, []);
@@ -63,10 +64,8 @@ function App() {
       }, []);
     };
   }
-  const groupByName = groupBy("gameName")(sortedByMatchStartDate);
-  const groupByLeague = groupBy("leagueName")(sortedByMatchStartDate);
-
-  // Object.entries(groupByName).map((key) =>console.log(key))
+  const groupByName = groupBy("gameName")(dummydata);
+  const groupByLeague = groupBy("leagueName")(dummydata);
 
   return (
     <div className="App">
